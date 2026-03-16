@@ -138,7 +138,7 @@ body::after {
   grid-template-columns: 1fr 1fr;
   align-items: flex-end;
   gap: 0;
-  min-height: calc(100vh - 84px);
+  min-height: 100vh;
   padding-top: 40px;
 }
 
