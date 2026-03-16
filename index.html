@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
+  <link rel="preload" as="image" href="img/thais-retrato-2.jpg" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -51,7 +52,7 @@
       </div>
 
       <div class="hero-photo-wrap">
-        <img src="img/thais-retrato-2.jpg" alt="Thais Ayumi" class="hero-photo-img" />
+        <img src="img/thais-retrato-2.jpg" alt="Thais Ayumi" class="hero-photo-img" fetchpriority="high" width="900" height="1125" />
         <div class="hero-photo-fade"></div>
       </div>
 
@@ -118,7 +119,7 @@
   <section class="section-author">
 
     <div class="author-photo">
-      <img src="img/thais-consultorio-1.jpg" alt="Thais Ayumi — Psicanalista" />
+      <img src="img/thais-consultorio-1.jpg" alt="Thais Ayumi — Psicanalista" loading="lazy" width="900" height="1125" />
     </div>
 
     <div class="author-bio">
