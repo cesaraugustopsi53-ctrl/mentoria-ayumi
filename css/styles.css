@@ -6,9 +6,9 @@
    ============================================================ */
 
 :root {
-  --vinho:        #6B1423;
-  --vinho-escuro: #3d0a13;
-  --vinho-medio:  #7d1829;
+  --vinho:        #5a1020;
+  --vinho-escuro: #1e0509;
+  --vinho-medio:  #6d1425;
   --dourado:      #C9A45A;
   --dourado-dim:  rgba(201,164,90,0.18);
   --dourado-line: rgba(201,164,90,0.40);
@@ -114,6 +114,8 @@ body::after {
 
 /* ============================================================
    HERO — Full Viewport, estética Steve McCurry
+   Direção de luz: Gordon Willis — sombra profunda esquerda,
+   luz lateral direita, emergência da escuridão
    ============================================================ */
 .hero {
   position: relative;
@@ -124,10 +126,12 @@ body::after {
   overflow: hidden;
 }
 
-/* Vinheta sutil nos cantos */
+/* Vinheta radial — cantos profundos, centro respira */
 .hero-vinheta {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(20,4,8,0.6) 100%);
+  background:
+    radial-gradient(ellipse 80% 80% at 30% 50%, transparent 40%, rgba(10,2,4,0.75) 100%),
+    radial-gradient(ellipse at top right, transparent 55%, rgba(10,2,4,0.5) 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -144,13 +148,13 @@ body::after {
 }
 
 .hero-content {
-  padding: 80px 60px 80px 0;
+  padding: 80px 56px 80px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* Foto em destaque — img real, não background */
+/* Foto em destaque — img real */
 .hero-photo-wrap {
   position: relative;
   display: flex;
@@ -167,15 +171,22 @@ body::after {
   object-fit: cover;
   object-position: center 8%;
   display: block;
-  filter: brightness(0.88) saturate(0.82);
+  /* Luz lateral suave — Lubezki natural light */
+  filter: brightness(0.85) saturate(0.78) contrast(1.04);
 }
 
-/* Fade suave da foto para o fundo vinho nas bordas */
+/* Jogo de luz e sombra cinematográfico:
+   - Esquerda: sombra profunda funde com o texto
+   - Base: escuridão sobe do chão
+   - Direita: leve rim light dourado — separa ela do fundo
+   - Topo: vinheta suave */
 .hero-photo-fade {
   position: absolute; inset: 0;
   background:
-    linear-gradient(to right, var(--vinho-escuro) 0%, transparent 18%),
-    linear-gradient(to top, var(--vinho-escuro) 0%, transparent 15%);
+    linear-gradient(to right, var(--vinho-escuro) 0%, rgba(30,5,9,0.7) 12%, transparent 30%),
+    linear-gradient(to top, var(--vinho-escuro) 0%, rgba(30,5,9,0.4) 20%, transparent 40%),
+    linear-gradient(to left, rgba(201,164,90,0.04) 0%, transparent 8%),
+    linear-gradient(to bottom, rgba(10,2,4,0.3) 0%, transparent 15%);
   pointer-events: none;
 }
 
@@ -569,33 +580,29 @@ body::after {
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {
-  /* Hero: foto em cima, texto embaixo */
+  /* Hero tablet: foto em cima, texto embaixo */
   .hero-inner {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
     align-items: start;
     padding-top: 0;
     min-height: auto;
   }
   .hero-photo-wrap {
     order: -1;
-    min-height: 55vw;
-    max-height: 480px;
+    min-height: 64vw;
+    max-height: 520px;
   }
   .hero-photo-img {
-    width: 100%;
-    height: 100%;
-    max-height: 480px;
-    object-position: center 12%;
+    max-height: 520px;
+    object-position: center 10%;
   }
   .hero-photo-fade {
     background:
-      linear-gradient(to bottom, transparent 60%, var(--vinho-escuro) 100%);
+      linear-gradient(to bottom, rgba(10,2,4,0.25) 0%, transparent 30%, rgba(30,5,9,0.5) 75%, var(--vinho-escuro) 100%),
+      linear-gradient(to right, rgba(30,5,9,0.15) 0%, transparent 25%);
   }
-  .hero-content {
-    padding: 40px 0 80px;
-  }
-  .hero-h1 { font-size: 2.2rem; max-width: 100%; }
+  .hero-content { padding: 40px 0 72px; }
+  .hero-h1 { font-size: 2.1rem; max-width: 100%; }
   .hero-sub { max-width: 100%; }
 
   .section-author { grid-template-columns: 1fr; }
@@ -605,18 +612,47 @@ body::after {
 
 @media (max-width: 640px) {
   .container, .container--narrow { padding: 0 24px; }
-  .hero-photo-wrap { max-height: 360px; min-height: 360px; }
-  .hero-photo-img { max-height: 360px; }
-  .hero-content { padding: 32px 0 72px; }
-  .hero-h1 { font-size: 1.85rem; }
-  .hero-logo { margin-bottom: 32px; }
-  .section-editorial { padding: 88px 0; }
-  .section-wine, .section-wine-dark { padding: 88px 0; }
-  .section-apply { padding: 100px 0; }
-  .author-bio { padding: 52px 24px; }
-  .author-stats { gap: 24px; }
-  .editorial-text { font-size: 1.1rem; }
-  .apply-h2 { font-size: 1.9rem; }
-  .btn-candidatura, .btn-apply-final { padding: 15px 32px; }
-  .monogram-circle { width: 52px; height: 52px; font-size: 1.2rem; }
+
+  /* Hero mobile */
+  .hero-photo-wrap { min-height: 72vw; max-height: 400px; }
+  .hero-photo-img { max-height: 400px; object-position: center 8%; }
+  .hero-content { padding: 32px 0 64px; }
+  .hero-h1 { font-size: 1.8rem; line-height: 1.2; }
+  .hero-sub { font-size: 0.88rem; margin-bottom: 40px; }
+  .hero-logo { margin-bottom: 28px; }
+  .hero-eyebrow { font-size: 0.6rem; letter-spacing: 0.16em; }
+  .monogram-circle { width: 48px; height: 48px; font-size: 1.1rem; }
+
+  /* Seções */
+  .section-editorial { padding: 80px 0; }
+  .section-wine, .section-wine-dark { padding: 80px 0; }
+  .section-apply { padding: 88px 0; }
+
+  /* Editorial — não justificar em telas pequenas */
+  .editorial-text { font-size: 1.05rem; text-align: left; hyphens: none; }
+  .editorial-small { font-size: 0.8rem; text-align: left; }
+
+  /* Para quem é */
+  .for-whom-title { font-size: 1.55rem; }
+  .for-whom-list li { font-size: 0.85rem; }
+
+  /* Author */
+  .author-photo img { min-height: 380px; }
+  .author-bio { padding: 48px 24px; }
+  .author-name { font-size: 2rem; }
+  .author-text { font-size: 0.85rem; }
+  .author-stats { gap: 20px; flex-wrap: wrap; }
+  .author-stat-num { font-size: 1.7rem; }
+
+  /* CTA */
+  .apply-h2 { font-size: 1.8rem; }
+  .apply-sub { font-size: 0.82rem; text-align: left; }
+  .btn-candidatura, .btn-apply-final {
+    padding: 15px 28px;
+    font-size: 0.68rem;
+    display: block;
+    text-align: center;
+    max-width: 280px;
+  }
+  .apply-note { font-size: 0.64rem; }
 }
