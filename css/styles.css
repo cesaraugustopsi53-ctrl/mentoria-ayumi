@@ -617,6 +617,8 @@ body::after {
     display: block;
     text-align: center;
     max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .apply-note { font-size: 0.64rem; }
 }
