@@ -6,8 +6,8 @@
    ============================================================ */
 
 :root {
-  --vinho:        #5a1020;
-  --vinho-escuro: #1e0509;
+  --vinho:        #5c1120;
+  --vinho-escuro: #3a0a12;
   --vinho-medio:  #6d1425;
   --dourado:      #C9A45A;
   --dourado-dim:  rgba(201,164,90,0.18);
@@ -74,15 +74,10 @@ body::after {
    HEADER — transparente sobre hero
    ============================================================ */
 .header {
-  position: fixed; top: 0; left: 0; right: 0;
+  position: relative;
   z-index: 100;
   padding: 28px 0;
-  transition: background 0.4s, padding 0.4s;
-}
-.header.scrolled {
-  background: rgba(60,10,19,0.96);
-  padding: 18px 0;
-  backdrop-filter: blur(12px);
+  background: var(--vinho-escuro);
 }
 .header-inner {
   display: flex;
@@ -143,8 +138,8 @@ body::after {
   grid-template-columns: 1fr 1fr;
   align-items: flex-end;
   gap: 0;
-  min-height: 100vh;
-  padding-top: 120px;
+  min-height: calc(100vh - 84px);
+  padding-top: 40px;
 }
 
 .hero-content {
