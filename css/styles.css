@@ -118,47 +118,65 @@ body::after {
 .hero {
   position: relative;
   min-height: 100vh;
-  background: var(--vinho);
+  background: var(--vinho-escuro);
   display: flex;
   align-items: center;
   overflow: hidden;
 }
 
-/* Foto dela — lado direito, ela emerge do vinho */
-.hero-portrait {
-  position: absolute;
-  right: 0; top: 0; bottom: 0;
-  width: 52%;
-  background-image: url('../img/thais-retrato-2.jpg');
-  background-size: cover;
-  background-position: center 12%;
-  filter: brightness(0.70) saturate(0.75);
-}
-
-/* Gradiente que une texto e foto */
-.hero-portrait::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(
-    to right,
-    var(--vinho) 0%,
-    rgba(107,20,35,0.85) 20%,
-    rgba(107,20,35,0.30) 55%,
-    rgba(107,20,35,0.08) 100%
-  );
-}
-
 /* Vinheta sutil nos cantos */
 .hero-vinheta {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(20,4,8,0.55) 100%);
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(20,4,8,0.6) 100%);
   pointer-events: none;
+  z-index: 1;
+}
+
+/* Grid: texto esquerda | foto direita */
+.hero-inner {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-end;
+  gap: 0;
+  min-height: 100vh;
+  padding-top: 120px;
 }
 
 .hero-content {
-  position: relative; z-index: 2;
+  padding: 80px 60px 80px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Foto em destaque — img real, não background */
+.hero-photo-wrap {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.hero-photo-img {
   width: 100%;
-  padding: 160px 0 120px;
+  height: 100%;
+  max-height: 100vh;
+  object-fit: cover;
+  object-position: center 8%;
+  display: block;
+  filter: brightness(0.88) saturate(0.82);
+}
+
+/* Fade suave da foto para o fundo vinho nas bordas */
+.hero-photo-fade {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to right, var(--vinho-escuro) 0%, transparent 18%),
+    linear-gradient(to top, var(--vinho-escuro) 0%, transparent 15%);
+  pointer-events: none;
 }
 
 /* Logo no topo */
@@ -308,7 +326,7 @@ body::after {
    ============================================================ */
 .section-wine {
   padding: 120px 0;
-  background: var(--vinho);
+  background: var(--vinho-escuro);
 }
 
 .section-wine-dark {
@@ -551,14 +569,31 @@ body::after {
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {
-  .hero-portrait { width: 100%; }
-  .hero-portrait::before {
-    background: linear-gradient(
-      to bottom,
-      rgba(107,20,35,0.85) 0%,
-      rgba(107,20,35,0.55) 50%,
-      rgba(107,20,35,0.20) 100%
-    );
+  /* Hero: foto em cima, texto embaixo */
+  .hero-inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    align-items: start;
+    padding-top: 0;
+    min-height: auto;
+  }
+  .hero-photo-wrap {
+    order: -1;
+    min-height: 55vw;
+    max-height: 480px;
+  }
+  .hero-photo-img {
+    width: 100%;
+    height: 100%;
+    max-height: 480px;
+    object-position: center 12%;
+  }
+  .hero-photo-fade {
+    background:
+      linear-gradient(to bottom, transparent 60%, var(--vinho-escuro) 100%);
+  }
+  .hero-content {
+    padding: 40px 0 80px;
   }
   .hero-h1 { font-size: 2.2rem; max-width: 100%; }
   .hero-sub { max-width: 100%; }
@@ -569,14 +604,16 @@ body::after {
 }
 
 @media (max-width: 640px) {
-  .container, .container--narrow { padding: 0 28px; }
-  .hero-content { padding: 120px 0 80px; }
-  .hero-h1 { font-size: 1.9rem; }
-  .hero-logo { margin-bottom: 40px; }
+  .container, .container--narrow { padding: 0 24px; }
+  .hero-photo-wrap { max-height: 360px; min-height: 360px; }
+  .hero-photo-img { max-height: 360px; }
+  .hero-content { padding: 32px 0 72px; }
+  .hero-h1 { font-size: 1.85rem; }
+  .hero-logo { margin-bottom: 32px; }
   .section-editorial { padding: 88px 0; }
   .section-wine, .section-wine-dark { padding: 88px 0; }
   .section-apply { padding: 100px 0; }
-  .author-bio { padding: 52px 28px; }
+  .author-bio { padding: 52px 24px; }
   .author-stats { gap: 24px; }
   .editorial-text { font-size: 1.1rem; }
   .apply-h2 { font-size: 1.9rem; }
