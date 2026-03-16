@@ -85,27 +85,6 @@ body::after {
   justify-content: space-between;
 }
 
-/* Monograma AM — SVG inline via background */
-.logo-am {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: var(--dourado);
-}
-.logo-am span { opacity: 0.6; margin: 0 4px; font-weight: 300; }
-
-.header-cta {
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--dourado);
-  border-bottom: 1px solid var(--dourado-line);
-  padding-bottom: 2px;
-  transition: opacity 0.2s;
-}
-.header-cta:hover { opacity: 0.7; }
 
 /* ============================================================
    HERO — Full Viewport, estética Steve McCurry
@@ -121,12 +100,11 @@ body::after {
   overflow: hidden;
 }
 
-/* Vinheta radial — cantos profundos, centro respira */
+/* Vinheta radial — só no lado do texto, não interfere na foto */
 .hero-vinheta {
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 80% 80% at 30% 50%, transparent 40%, rgba(10,2,4,0.75) 100%),
-    radial-gradient(ellipse at top right, transparent 55%, rgba(10,2,4,0.5) 100%);
+    radial-gradient(ellipse 60% 90% at 10% 50%, rgba(10,2,4,0.5) 0%, transparent 70%);
   pointer-events: none;
   z-index: 1;
 }
@@ -164,24 +142,17 @@ body::after {
   height: 100%;
   max-height: 100vh;
   object-fit: cover;
-  object-position: center 8%;
+  object-position: center 22%;
   display: block;
-  /* Luz lateral suave — Lubezki natural light */
-  filter: brightness(0.85) saturate(0.78) contrast(1.04);
+  filter: brightness(0.87) saturate(0.78) contrast(1.03);
 }
 
-/* Jogo de luz e sombra cinematográfico:
-   - Esquerda: sombra profunda funde com o texto
-   - Base: escuridão sobe do chão
-   - Direita: leve rim light dourado — separa ela do fundo
-   - Topo: vinheta suave */
+/* Fade: só esquerda (une com texto) e base (chão) — sem sombra no topo */
 .hero-photo-fade {
   position: absolute; inset: 0;
   background:
-    linear-gradient(to right, var(--vinho-escuro) 0%, rgba(30,5,9,0.7) 12%, transparent 30%),
-    linear-gradient(to top, var(--vinho-escuro) 0%, rgba(30,5,9,0.4) 20%, transparent 40%),
-    linear-gradient(to left, rgba(201,164,90,0.04) 0%, transparent 8%),
-    linear-gradient(to bottom, rgba(10,2,4,0.3) 0%, transparent 15%);
+    linear-gradient(to right, var(--vinho-escuro) 0%, rgba(30,5,9,0.65) 10%, transparent 28%),
+    linear-gradient(to top, var(--vinho-escuro) 0%, rgba(30,5,9,0.35) 18%, transparent 36%);
   pointer-events: none;
 }
 
@@ -335,10 +306,6 @@ body::after {
   background: var(--vinho-escuro);
 }
 
-.section-wine-dark {
-  padding: 120px 0;
-  background: var(--vinho-escuro);
-}
 
 .for-whom-title {
   font-family: 'Cormorant Garamond', serif;
@@ -620,7 +587,7 @@ body::after {
 
   /* Seções */
   .section-editorial { padding: 80px 0; }
-  .section-wine, .section-wine-dark { padding: 80px 0; }
+  .section-wine { padding: 80px 0; }
   .section-apply { padding: 88px 0; }
 
   /* Editorial — não justificar em telas pequenas */
