@@ -1,0 +1,585 @@
+/* ============================================================
+   MENTORIA AYUMI
+   Estética: Steve McCurry "Portraits" — Phaidon
+   Vinho #6B1423 · Dourado #C9A45A · Creme #FAF8F5
+   Tipografia: Cormorant Garamond + Inter
+   ============================================================ */
+
+:root {
+  --vinho:        #6B1423;
+  --vinho-escuro: #3d0a13;
+  --vinho-medio:  #7d1829;
+  --dourado:      #C9A45A;
+  --dourado-dim:  rgba(201,164,90,0.18);
+  --dourado-line: rgba(201,164,90,0.40);
+  --creme:        #FAF8F5;
+  --creme-warm:   #F3EEE7;
+  --texto-escuro: #1a0609;
+  --texto-medio:  rgba(26,6,9,0.65);
+  --texto-creme:  rgba(250,248,245,0.75);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--creme);
+  color: var(--texto-escuro);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Cormorant para títulos e destaques */
+.serif { font-family: 'Cormorant Garamond', 'Playfair Display', serif; }
+
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.container--narrow {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ============================================================
+   FILM GRAIN — sutil, como papel de livro art
+   ============================================================ */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9998;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
+  opacity: 0.028;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* ============================================================
+   REVEAL
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ============================================================
+   HEADER — transparente sobre hero
+   ============================================================ */
+.header {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px 0;
+  transition: background 0.4s, padding 0.4s;
+}
+.header.scrolled {
+  background: rgba(60,10,19,0.96);
+  padding: 18px 0;
+  backdrop-filter: blur(12px);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Monograma AM — SVG inline via background */
+.logo-am {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--dourado);
+}
+.logo-am span { opacity: 0.6; margin: 0 4px; font-weight: 300; }
+
+.header-cta {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  border-bottom: 1px solid var(--dourado-line);
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+.header-cta:hover { opacity: 0.7; }
+
+/* ============================================================
+   HERO — Full Viewport, estética Steve McCurry
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background: var(--vinho);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Foto dela — lado direito, ela emerge do vinho */
+.hero-portrait {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 52%;
+  background-image: url('../img/thais-retrato-2.jpg');
+  background-size: cover;
+  background-position: center 12%;
+  filter: brightness(0.70) saturate(0.75);
+}
+
+/* Gradiente que une texto e foto */
+.hero-portrait::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to right,
+    var(--vinho) 0%,
+    rgba(107,20,35,0.85) 20%,
+    rgba(107,20,35,0.30) 55%,
+    rgba(107,20,35,0.08) 100%
+  );
+}
+
+/* Vinheta sutil nos cantos */
+.hero-vinheta {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(20,4,8,0.55) 100%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  width: 100%;
+  padding: 160px 0 120px;
+}
+
+/* Logo no topo */
+.hero-logo {
+  margin-bottom: 64px;
+}
+.hero-logo-monogram {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.monogram-circle {
+  width: 64px; height: 64px;
+  border: 1px solid var(--dourado-line);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  color: var(--dourado);
+  letter-spacing: 0.03em;
+  font-weight: 400;
+}
+.logo-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dourado);
+}
+
+.hero-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(201,164,90,0.7);
+  margin-bottom: 28px;
+  display: block;
+}
+
+.hero-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--creme);
+  line-height: 1.15;
+  margin-bottom: 36px;
+  max-width: 520px;
+}
+
+.hero-rule {
+  width: 40px; height: 1px;
+  background: var(--dourado-line);
+  margin-bottom: 32px;
+}
+
+.hero-sub {
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--texto-creme);
+  line-height: 1.9;
+  max-width: 380px;
+  margin-bottom: 52px;
+  letter-spacing: 0.02em;
+}
+
+.btn-candidatura {
+  display: inline-block;
+  background: transparent;
+  color: var(--dourado);
+  border: 1px solid var(--dourado-line);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 16px 40px;
+  border-radius: 0;
+  transition: background 0.35s, color 0.35s;
+}
+.btn-candidatura:hover {
+  background: var(--dourado);
+  color: var(--vinho-escuro);
+}
+
+/* ============================================================
+   DIVISOR — linha dourada sutil, McCurry book spine
+   ============================================================ */
+.gold-line {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--dourado-line) 40%, var(--dourado-line) 60%, transparent);
+}
+
+/* ============================================================
+   SEÇÃO BRANCA — Interior do livro McCurry
+   Texto pequeno, justificado, enorme espaço vazio
+   ============================================================ */
+.section-editorial {
+  padding: 120px 0;
+  background: var(--creme);
+}
+
+.editorial-eyebrow {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.editorial-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 2;
+  color: var(--texto-escuro);
+  text-align: justify;
+  hyphens: auto;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.editorial-text em {
+  font-style: italic;
+  color: var(--vinho);
+}
+
+.editorial-small {
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--texto-medio);
+  text-align: center;
+  line-height: 2;
+  max-width: 440px;
+  margin: 40px auto 0;
+}
+
+/* ============================================================
+   SEÇÃO VINHO — Para quem é
+   ============================================================ */
+.section-wine {
+  padding: 120px 0;
+  background: var(--vinho);
+}
+
+.section-wine-dark {
+  padding: 120px 0;
+  background: var(--vinho-escuro);
+}
+
+.for-whom-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--creme);
+  margin-bottom: 56px;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.for-whom-list {
+  list-style: none;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.for-whom-list li {
+  font-size: 0.88rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--texto-creme);
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(201,164,90,0.15);
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  line-height: 1.6;
+}
+.for-whom-list li::before {
+  content: '—';
+  color: var(--dourado);
+  flex-shrink: 0;
+  font-weight: 300;
+}
+
+/* ============================================================
+   SEÇÃO THAÍS — Foto + Bio editorial
+   ============================================================ */
+.section-author {
+  padding: 0;
+  background: var(--creme-warm);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 80vh;
+}
+
+.author-photo {
+  position: relative;
+  overflow: hidden;
+}
+.author-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 10%;
+  filter: brightness(0.93) saturate(0.88);
+  display: block;
+  min-height: 600px;
+}
+
+.author-bio {
+  padding: 100px 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.author-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--dourado);
+  margin-bottom: 32px;
+  display: block;
+}
+.author-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--vinho);
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+.author-title {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texto-medio);
+  margin-bottom: 36px;
+}
+.author-rule {
+  width: 32px; height: 1px;
+  background: var(--dourado);
+  margin-bottom: 36px;
+}
+.author-text {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--texto-medio);
+  line-height: 2;
+  margin-bottom: 16px;
+}
+.author-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(107,20,35,0.12);
+}
+.author-stat-num {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--vinho);
+  line-height: 1;
+}
+.author-stat-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texto-medio);
+  margin-top: 6px;
+}
+
+/* ============================================================
+   SEÇÃO CANDIDATURA — CTA final
+   ============================================================ */
+.section-apply {
+  padding: 160px 0;
+  background: var(--vinho-escuro);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gold glow center — atmosphere */
+.section-apply::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(201,164,90,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.apply-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(201,164,90,0.6);
+  margin-bottom: 40px;
+  display: block;
+  position: relative;
+}
+
+.apply-h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--creme);
+  line-height: 1.2;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.apply-sub {
+  font-size: 0.84rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--texto-creme);
+  margin-bottom: 56px;
+  line-height: 1.9;
+  position: relative;
+}
+
+.btn-apply-final {
+  display: inline-block;
+  background: var(--dourado);
+  color: var(--vinho-escuro);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 18px 56px;
+  border-radius: 0;
+  transition: opacity 0.3s;
+  position: relative;
+}
+.btn-apply-final:hover { opacity: 0.88; }
+
+.apply-note {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: rgba(201,164,90,0.45);
+  margin-top: 24px;
+  position: relative;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: var(--vinho-escuro);
+  border-top: 1px solid rgba(201,164,90,0.12);
+  padding: 40px 0;
+  text-align: center;
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(201,164,90,0.45);
+  margin-bottom: 12px;
+}
+.footer-text {
+  font-size: 0.72rem;
+  color: rgba(250,248,245,0.25);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .hero-portrait { width: 100%; }
+  .hero-portrait::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(107,20,35,0.85) 0%,
+      rgba(107,20,35,0.55) 50%,
+      rgba(107,20,35,0.20) 100%
+    );
+  }
+  .hero-h1 { font-size: 2.2rem; max-width: 100%; }
+  .hero-sub { max-width: 100%; }
+
+  .section-author { grid-template-columns: 1fr; }
+  .author-photo img { min-height: 480px; object-position: center 5%; }
+  .author-bio { padding: 64px 40px; }
+}
+
+@media (max-width: 640px) {
+  .container, .container--narrow { padding: 0 28px; }
+  .hero-content { padding: 120px 0 80px; }
+  .hero-h1 { font-size: 1.9rem; }
+  .hero-logo { margin-bottom: 40px; }
+  .section-editorial { padding: 88px 0; }
+  .section-wine, .section-wine-dark { padding: 88px 0; }
+  .section-apply { padding: 100px 0; }
+  .author-bio { padding: 52px 28px; }
+  .author-stats { gap: 24px; }
+  .editorial-text { font-size: 1.1rem; }
+  .apply-h2 { font-size: 1.9rem; }
+  .btn-candidatura, .btn-apply-final { padding: 15px 32px; }
+  .monogram-circle { width: 52px; height: 52px; font-size: 1.2rem; }
+}
